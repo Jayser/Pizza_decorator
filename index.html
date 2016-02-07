@@ -1,0 +1,51 @@
+<head>
+    <title>Decorator * Pizza</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="js/i18n.js"></script>
+    <script src="js/pizzaPresets.js"></script>
+</head>
+<body>
+<div id="pizza">
+    <!-- Dynamic content-->
+</div>
+<script type="text/html" id="pizza-tpl">
+    <table class="pizzaTable">
+        <tr>
+            <th>{{titleName}}</th>
+            <th>{{titleSize}}</th>
+            <th>{{titleWeight}}</th>
+            <th>{{titleQuantity}}</th>
+            <th>{{titlePrice}}</th>
+            <th>{{titleDiscount}}</th>
+            <th>{{titleTotal}}</th>
+        </tr>
+        <tr>
+            <td>{{name}}</td>
+            <td>{{size}}</td>
+            <td>{{weight}}</td>
+            <td>{{quantity}}</td>
+            <td>{{price}}</td>
+            <td>{{discount}}</td>
+            <td>{{total}}</td>
+        </tr>
+    </table>
+</script>
+<script src="js/pizza.js"></script>
+<script src="js/pizzaDecorator.js"></script>
+<script>
+
+    /**
+     * @param {String} type
+     * @param {String} size
+     * @param {Number} quantity
+     * @param {Object} cfg
+     * @returns {Object}
+
+     * @summary decorate Pizza class
+     * @example pizzaDecorator('AFRODITA', 'big', {...})
+     */
+    pizzaDecorator('AFRODITA', 'big', 10).render();
+
+</script>
+</body>

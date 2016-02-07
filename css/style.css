@@ -1,0 +1,24 @@
+html {
+    font: 12px/1 arial;
+}
+
+.pizzaTable {
+    width: 850px;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.pizzaTable th {
+    background: deepskyblue;
+    color: white;
+    height: 50px;
+    border: 1px solid #ccc;
+    text-transform: uppercase;
+}
+
+.pizzaTable td {
+    height: 80px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
