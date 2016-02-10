@@ -17,28 +17,18 @@
         return this.price || 0;
     };
 
-    Pizza.prototype.getName = function () {
-        return this.name ? 'Пицца: ' + this.name : '';
-    };
-
 //    //--//--//--//--//--//--//--//--//--//--//--//--//--
 
     Pizza.decorators = {};
 
     Pizza.decorators.Tomato = {
-        initialize: function () {
-            this._super.price += 50;
-        },
         getPrice: function () {
-            return this._super.getPrice() + 'грн.';
+            return this._super.getPrice() + 50;
         }
     };
     Pizza.decorators.Cheese = {
-        initialize: function () {
-            this._super.price += 100;
-        },
         getPrice: function () {
-            return this._super.getPrice() + 'грн.';
+            return this._super.getPrice() + 30;
         }
     };
 
@@ -53,22 +43,22 @@
         decorator = new F();
         decorator._super = this;
 
-        overridesMethods.initialize.call(decorator);
-
         for (method in overridesMethods) {
-            if (overridesMethods.hasOwnProperty(method) && method !== 'initialize') {
+            if (overridesMethods.hasOwnProperty(method)) {
                 decorator[method] = overridesMethods[method];
             }
         }
 
-        return this;
+        return decorator;
     };
 
 //    //--//--//--//--//--//--//--//--//--//--//--//--//--
 
     var pizza = new Pizza('Афродита', 10);
-    pizza.decorators('Tomato');
-    pizza.decorators('Cheese');
+
+    pizza = pizza.decorators('Tomato');
+    pizza = pizza.decorators('Cheese');
+
     pizza.getPrice();
 
 </script>
