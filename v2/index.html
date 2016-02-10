@@ -1,0 +1,75 @@
+<head>
+    <title>Decorator * Pizza</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<script>
+
+
+//    //--//--//--//--//--//--//--//--//--//--//--//--//--
+
+    function Pizza(name, price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    Pizza.prototype.getPrice = function () {
+        return this.price || 0;
+    };
+
+    Pizza.prototype.getName = function () {
+        return this.name ? 'Пицца: ' + this.name : '';
+    };
+
+//    //--//--//--//--//--//--//--//--//--//--//--//--//--
+
+    Pizza.decorators = {};
+
+    Pizza.decorators.Tomato = {
+        initialize: function () {
+            this._super.price += 50;
+        },
+        getPrice: function () {
+            return this._super.getPrice() + 'грн.';
+        }
+    };
+    Pizza.decorators.Cheese = {
+        initialize: function () {
+            this._super.price += 100;
+        },
+        getPrice: function () {
+            return this._super.getPrice() + 'грн.';
+        }
+    };
+
+//    //--//--//--//--//--//--//--//--//--//--//--//--//--
+
+    Pizza.prototype.decorators = function (decoratorName) {
+        var F = function () {},
+                overridesMethods = this.constructor.decorators[decoratorName],
+                method, decorator;
+
+        F.prototype = this;
+        decorator = new F();
+        decorator._super = this;
+
+        overridesMethods.initialize.call(decorator);
+
+        for (method in overridesMethods) {
+            if (overridesMethods.hasOwnProperty(method) && method !== 'initialize') {
+                decorator[method] = overridesMethods[method];
+            }
+        }
+
+        return this;
+    };
+
+//    //--//--//--//--//--//--//--//--//--//--//--//--//--
+
+    var pizza = new Pizza('Афродита', 10);
+    pizza.decorators('Tomato');
+    pizza.decorators('Cheese');
+    pizza.getPrice();
+
+</script>
+</body>
